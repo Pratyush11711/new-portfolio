@@ -1,0 +1,171 @@
+---
+---
+
+<!-- Debugged Custom Cursor (Solid Visible Base) -->
+<div 
+  id="custom-cursor-container" 
+  class="fixed top-0 left-0 pointer-events-none z-[99999] opacity-100 hidden md:block select-none"
+  style="will-change: transform;"
+>
+  <div 
+    id="cursor-glass-body"
+    class="flex items-center justify-center rounded-full transition-all duration-150"
+    style="
+      width: 24px;
+      height: 24px;
+      background: #1d1d1b;
+      border: 2px solid #e2dedb;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      color: #e2dedb;
+    "
+  >
+    <span 
+      id="cursor-label"
+      class="opacity-0 transition-opacity duration-150 whitespace-nowrap px-2 font-editorial text-[10px] font-bold tracking-widest uppercase micro-label text-[#e2dedb]"
+    ></span>
+  </div>
+</div>
+
+<style>
+  /* Hide native cursor on desktop fine-pointer devices */
+  @media (hover: hover) and (pointer: fine) {
+    body, a, button, [role="button"], input, textarea {
+      cursor: none !important;
+    }
+  }
+
+  /* Disable custom cursor on touch devices */
+  @media (hover: none), (pointer: coarse) {
+    #custom-cursor-container {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('[CustomCursor] Script starting audit...');
+
+    // 1. Correct MatchMedia Syntax Check (comma separated, NOT word "or")
+    const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    console.log('[CustomCursor] isTouchDevice check:', isTouchDevice);
+    if (isTouchDevice) {
+      console.log('[CustomCursor] Touch device detected, aborting custom cursor.');
+      return;
+    }
+
+    const cursorContainer = document.getElementById('custom-cursor-container');
+    const glassBody = document.getElementById('cursor-glass-body');
+    const cursorLabel = document.getElementById('cursor-label');
+
+    if (!cursorContainer || !glassBody || !cursorLabel) {
+      console.error('[CustomCursor] Critical DOM elements missing!', { cursorContainer, glassBody, cursorLabel });
+      return;
+    }
+
+    // 2. Initialize mouse & cursor coordinates to center of viewport (never -100 or NaN)
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let cursorX = window.innerWidth / 2;
+    let cursorY = window.innerHeight / 2;
+    let velocityX = 0;
+    let velocityY = 0;
+    let lastX = window.innerWidth / 2;
+    let lastY = window.innerHeight / 2;
+    let isVisible = false;
+
+    console.log('[CustomCursor] Initialized positions:', { mouseX, mouseY });
+
+    // Track mouse position
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (!isVisible) {
+        isVisible = true;
+        cursorContainer.style.opacity = '1';
+        console.log('[CustomCursor] First mousemove received, cursor visible at:', mouseX, mouseY);
+      }
+    });
+
+    document.addEventListener('mouseleave', () => {
+      cursorContainer.style.opacity = '0';
+      isVisible = false;
+    });
+
+    // Spring Follow Loop
+    function animate() {
+      if (isVisible) {
+        const followSpeed = 0.18;
+        cursorX += (mouseX - cursorX) * followSpeed;
+        cursorY += (mouseY - cursorY) * followSpeed;
+
+        velocityX = cursorX - lastX;
+        velocityY = cursorY - lastY;
+        lastX = cursorX;
+        lastY = cursorY;
+
+        const speed = Math.sqrt(velocityX ** 2 + velocityY ** 2);
+        const angle = Math.atan2(velocityY, velocityX) * (180 / Math.PI);
+        const stretch = Math.min(speed * 0.04, 0.5);
+
+        cursorContainer.style.transform = 
+          `translate3d(${cursorX}px, ${cursorY}px, 0) rotate(${angle}deg) scaleX(${1 + stretch}) scaleY(${1 - stretch * 0.35}) translate(-50%, -50%)`;
+      }
+
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+
+    // Hover State handler
+    const interactiveSelector = 'a, button, [data-cursor], input, textarea, .group';
+
+    document.addEventListener('mouseover', (e) => {
+      const target = (e.target as HTMLElement).closest(interactiveSelector) as HTMLElement;
+      if (target) {
+        let labelText = target.getAttribute('data-cursor');
+        if (!labelText) {
+          if (target.tagName.toLowerCase() === 'a') {
+            const href = target.getAttribute('href') || '';
+            if (href.startsWith('http')) {
+              labelText = 'VIEW ↗';
+            } else if (href.startsWith('#')) {
+              labelText = 'GO →';
+            } else {
+              labelText = 'READ →';
+            }
+          } else if (target.tagName.toLowerCase() === 'button') {
+            labelText = 'OPEN';
+          } else {
+            labelText = 'VIEW';
+          }
+        }
+
+        cursorLabel.textContent = labelText;
+        cursorLabel.classList.remove('opacity-0');
+        cursorLabel.classList.add('opacity-100');
+
+        glassBody.style.width = 'auto';
+        glassBody.style.height = '30px';
+        glassBody.style.borderRadius = '15px';
+        glassBody.style.padding = '0 10px';
+        glassBody.style.background = '#c03f13';
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const target = (e.target as HTMLElement).closest(interactiveSelector);
+      if (target) {
+        cursorLabel.classList.remove('opacity-100');
+        cursorLabel.classList.add('opacity-0');
+        cursorLabel.textContent = '';
+
+        glassBody.style.width = '24px';
+        glassBody.style.height = '24px';
+        glassBody.style.borderRadius = '50%';
+        glassBody.style.padding = '0';
+        glassBody.style.background = '#1d1d1b';
+      }
+    });
+  });
+</script>

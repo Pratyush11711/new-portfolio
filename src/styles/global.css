@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+@theme {
+  --color-parchment: #e2dedb;
+  --color-bone-cream: #cdc6be;
+  --color-ink-black: #1d1d1b;
+  --color-charcoal: #69645f;
+  --color-pure-black: #000000;
+  --color-ember-orange: #c03f13;
+
+  --font-canopee: 'Bodoni Moda', 'Bodoni MT', Didot, 'Didot LT STD', serif;
+  --font-domaine-display: 'Playfair Display', Georgia, serif;
+  --font-editorial-new: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+  --font-germgoth: 'IM Fell English', serif;
+
+  --radius-sm: 2.88px;
+  --radius-lg: 7.2px;
+  --radius-xl: 11.52px;
+  --radius-tags: 2.88px;
+  --radius-cards: 11.52px;
+  --radius-images: 0px;
+  --radius-buttons: 2.88px;
+
+  --shadow-sm: -4px 4px 6px 0px rgba(29, 29, 27, 0.2);
+  --shadow-sm-2: -5px 3px 6px 0px rgba(29, 29, 27, 0.2);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-parchment);
+    color: var(--color-ink-black);
+    font-family: var(--font-editorial-new);
+    font-weight: 300;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ink-black) var(--color-parchment);
+  }
+
+  body {
+    background-color: var(--color-parchment);
+    color: var(--color-ink-black);
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-ink-black);
+    color: var(--color-parchment);
+  }
+
+  /* WebKit Custom Editorial Scrollbar (Chrome, Edge, Safari) */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-parchment);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink-black);
+    border-radius: 0px;
+    border: 2px solid var(--color-parchment);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ember-orange);
+  }
+}
+
+/* Safe hydration-gated native cursor fallback */
+body.blob-cursor-active,
+body.blob-cursor-active a,
+body.blob-cursor-active button,
+body.blob-cursor-active [role="button"],
+body.blob-cursor-active input,
+body.blob-cursor-active textarea {
+  cursor: none !important;
+}
+
+/* Custom typography & broadsheet utility classes */
+.font-canopee {
+  font-family: var(--font-canopee);
+  font-optical-sizing: auto;
+}
+
+.font-domaine {
+  font-family: var(--font-domaine-display);
+}
+
+.font-editorial {
+  font-family: var(--font-editorial-new);
+  font-weight: 300;
+}
+
+.font-germgoth {
+  font-family: var(--font-germgoth);
+}
+
+/* Single Source of Truth for Broadsheet Name Heading (Miranda Design System) */
+.broadsheet-masthead-title {
+  font-family: var(--font-canopee);
+  font-weight: 700;
+  line-height: 0.75;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  font-optical-sizing: auto;
+}
+
+.display-banner-text {
+  font-family: var(--font-canopee);
+  font-weight: 700;
+  line-height: 0.75;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.heading-canopee {
+  font-family: var(--font-canopee);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.heading-domaine {
+  font-family: var(--font-domaine-display);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+/* Editorial micro-label */
+.micro-label {
+  font-family: var(--font-editorial-new);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* Editorial Drop Cap */
+.drop-cap::first-letter {
+  font-family: var(--font-canopee);
+  float: left;
+  font-size: 5.2rem;
+  line-height: 0.75;
+  padding-top: 4px;
+  padding-right: 12px;
+  padding-bottom: 2px;
+  color: var(--color-ink-black);
+  font-weight: 800;
+}
+
+/* Broadsheet rule lines */
+.border-broadsheet {
+  border-color: var(--color-ink-black);
+}
+
+/* Scroll reveal classes */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

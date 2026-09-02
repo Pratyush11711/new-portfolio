@@ -1,0 +1,65 @@
+---
+---
+
+<header class="sticky top-0 z-50 bg-[#e2dedb]/95 backdrop-blur-xs border-b border-[#1d1d1b]">
+  <div class="max-w-[1440px] mx-auto px-4 md:px-8 py-3.5 flex items-center justify-between font-editorial text-sm">
+    <!-- Left: Location metadata -->
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2 h-2 rounded-full bg-[#c03f13]"></span>
+      <span class="micro-label text-[#1d1d1b] hidden sm:inline">SHAHJAHANPUR, INDIA</span>
+      <span class="micro-label text-[#1d1d1b] sm:hidden">SHAHJAHANPUR, IN</span>
+    </div>
+
+    <!-- Center: Brand Name -->
+    <div class="text-center font-editorial text-base md:text-lg font-light tracking-tight text-[#1d1d1b]">
+      <a href="#top" class="hover:text-[#000000] transition-colors">
+        PRATYUSH GUPTA <span class="text-[#69645f] text-xs px-1">/</span> FOLIO '26
+      </a>
+    </div>
+
+    <!-- Right: Nav Links -->
+    <nav class="hidden md:flex items-center gap-6 micro-label text-[#1d1d1b]">
+      <a href="#about" class="hover:underline underline-offset-4 decoration-[#1d1d1b] transition-all">About</a>
+      <a href="#skills" class="hover:underline underline-offset-4 decoration-[#1d1d1b] transition-all">Skills</a>
+      <a href="#experience" class="hover:underline underline-offset-4 decoration-[#1d1d1b] transition-all">Experience</a>
+      <a href="#projects" class="hover:underline underline-offset-4 decoration-[#1d1d1b] transition-all">Projects</a>
+      <a href="#education" class="hover:underline underline-offset-4 decoration-[#1d1d1b] transition-all">Education</a>
+      <a href="#contact" class="px-2.5 py-1 bg-[#1d1d1b] text-[#e2dedb] text-[11px] rounded-[2.88px] hover:bg-[#000000] transition-colors">Contact</a>
+    </nav>
+
+    <!-- Mobile Hamburger Toggle -->
+    <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-1" aria-label="Toggle navigation menu">
+      <span class="w-6 h-[1.5px] bg-[#1d1d1b] transition-transform origin-center" id="line1"></span>
+      <span class="w-6 h-[1.5px] bg-[#1d1d1b] transition-opacity" id="line2"></span>
+      <span class="w-6 h-[1.5px] bg-[#1d1d1b] transition-transform origin-center" id="line3"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-[#1d1d1b] bg-[#e2dedb] px-6 py-5 flex flex-col gap-4 font-editorial">
+    <a href="#about" class="mobile-link text-base text-[#1d1d1b] border-b border-[#cdc6be] pb-2">01 / About</a>
+    <a href="#skills" class="mobile-link text-base text-[#1d1d1b] border-b border-[#cdc6be] pb-2">02 / Skills</a>
+    <a href="#experience" class="mobile-link text-base text-[#1d1d1b] border-b border-[#cdc6be] pb-2">03 / Experience</a>
+    <a href="#projects" class="mobile-link text-base text-[#1d1d1b] border-b border-[#cdc6be] pb-2">04 / Projects</a>
+    <a href="#education" class="mobile-link text-base text-[#1d1d1b] border-b border-[#cdc6be] pb-2">05 / Education</a>
+    <a href="#contact" class="mobile-link text-base text-[#c03f13] font-medium pt-1">06 / Contact & Socials →</a>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+      });
+    });
+  }
+</script>

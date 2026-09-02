@@ -1,0 +1,80 @@
+---
+const achievements = [
+  "Built a real-time chat app with authentication and secure messaging using Next.js and PostgreSQL.",
+  "Integrated REST APIs via Node.js/Express in a distributed architecture, cutting latency by 20%.",
+  "Designed a PDF summarization app that extracts and stores summaries in PostgreSQL for quick retrieval.",
+  "Built a custom QR code generator with style customization, error-correction levels, and image embedding.",
+  "Engineered a free tool converting plain text into Unicode-styled text, with a live LinkedIn preview.",
+  "Architected an Astro static site deployed via Cloudflare Workers, boosting SEO performance.",
+  "Implemented an SEO strategy: keyword research, competitive analysis, on-page optimization, and structured data.",
+  "Established GA4 analytics and AdSense monetization, plus transactional email integration via Resend."
+];
+---
+
+<section id="experience" class="py-16 border-b border-[#1d1d1b] reveal-on-scroll">
+  <div class="max-w-[1440px] mx-auto px-4 md:px-8">
+    
+    <!-- Section Header Micro-Label -->
+    <div class="flex items-center justify-between border-b border-[#1d1d1b] pb-2 mb-8">
+      <span class="micro-label text-[#c03f13]">SECTION 03 // PROFESSIONAL CHRONICLE</span>
+      <span class="micro-label text-[#69645f]">WORK EXPERIENCE</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Title & Date metadata -->
+      <div class="lg:col-span-4 lg:sticky lg:top-24">
+        <span class="inline-block px-2.5 py-1 bg-[#c03f13] text-[#e2dedb] text-[11px] font-editorial uppercase rounded-[2.88px] mb-3">
+          CURRENT ROLE
+        </span>
+        <h2 class="heading-canopee text-[38px] sm:text-[48px] text-[#1d1d1b] uppercase leading-[0.82]">
+          FULL STACK WEB DEVELOPER
+        </h2>
+        <p class="font-editorial text-lg text-[#69645f] font-light mt-1">
+          Freelance / Independent Practice
+        </p>
+
+        <div class="mt-6 p-4 bg-[#cdc6be] rounded-[7.2px] border border-[#1d1d1b] font-editorial text-sm space-y-2">
+          <div class="flex justify-between border-b border-[#1d1d1b]/20 pb-1.5">
+            <span class="text-[#69645f] micro-label">TIMELINE</span>
+            <span class="font-medium text-[#1d1d1b]">01/2024 — CURRENT</span>
+          </div>
+          <div class="flex justify-between border-b border-[#1d1d1b]/20 pb-1.5">
+            <span class="text-[#69645f] micro-label">LOCATION</span>
+            <span class="font-medium text-[#1d1d1b]">Remote / India</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-[#69645f] micro-label">FOCUS</span>
+            <span class="font-medium text-[#c03f13]">Full-Stack & Cloud</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Editorial Timeline Bullets -->
+      <div class="lg:col-span-8 bg-[#e2dedb] border border-[#1d1d1b] p-6 md:p-8 rounded-[11.52px] shadow-[-4px_4px_6px_0px_rgba(29,29,27,0.15)]">
+        <div class="flex items-center justify-between border-b border-[#1d1d1b] pb-4 mb-6">
+          <h3 class="font-domaine text-2xl md:text-3xl text-[#1d1d1b] font-medium">
+            Key Accomplishments & Architecture Impact
+          </h3>
+          <span class="micro-label text-[#69645f] hidden sm:inline">8 ENGAGEMENTS</span>
+        </div>
+
+        <ul class="space-y-4 font-editorial text-base md:text-lg text-[#1d1d1b] font-light">
+          {achievements.map((item, idx) => (
+            <li class="flex items-start gap-4 pb-4 border-b border-[#cdc6be] last:border-b-0 last:pb-0">
+              <span class="font-canopee text-xl md:text-2xl text-[#c03f13] select-none min-w-[28px]">
+                0{idx + 1}
+              </span>
+              <p class="leading-[1.4] text-[#1d1d1b]">
+                {item}
+              </p>
+            </li>
+          ))}
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>

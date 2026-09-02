@@ -1,0 +1,136 @@
+---
+---
+
+<!-- Intro Animation: Extended Rotate 3D (1.0s) -> Hold (0.4s) -> Zoom & Fade (0.9s) -->
+<div 
+  id="intro-overlay" 
+  class="fixed inset-0 z-[10000] bg-[#e2dedb] flex flex-col items-center justify-center p-4 sm:p-6 pointer-events-auto select-none overflow-hidden"
+  style="perspective: 1200px; transform-origin: center center; will-change: transform, opacity;"
+>
+  <!-- Masthead Box (3D Rotating Element) -->
+  <div 
+    id="intro-masthead-box" 
+    class="w-full max-w-[620px] bg-[#e2dedb] border-2 border-[#1d1d1b] p-6 sm:p-10 shadow-[0_20px_45px_rgba(29,29,27,0.25)] text-center transform-gpu"
+    style="transform: rotateY(-90deg); opacity: 0; transform-style: preserve-3d; backface-visibility: hidden; will-change: transform, opacity;"
+  >
+    <!-- Top Hairline Metadata -->
+    <div class="flex items-center justify-between border-b border-[#1d1d1b] pb-3 mb-6 text-[11px] font-editorial text-[#69645f]">
+      <span class="micro-label text-[#1d1d1b]">VOL. 01 — NO. 26</span>
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#c03f13]"></span>
+      <span class="micro-label text-[#1d1d1b]">SHAHJAHANPUR, IN</span>
+    </div>
+
+    <!-- Centered Brand Title (Single Source of Truth typography token matching Hero) -->
+    <h1 class="broadsheet-masthead-title text-[38px] sm:text-[64px] md:text-[78px] text-[#1d1d1b] text-center select-none mb-3">
+      PRATYUSH GUPTA
+    </h1>
+
+    <p class="font-editorial text-xs sm:text-sm text-[#1d1d1b] font-normal tracking-wider uppercase mb-6">
+      FULL STACK WEB DEVELOPER & COMPUTER SCIENCE ENGINEER
+    </p>
+
+    <!-- Bottom Hairline Tag -->
+    <div class="border-t border-[#1d1d1b] pt-3 flex items-center justify-between text-[10px] font-editorial text-[#69645f]">
+      <span>SPECIAL EDITORIAL DISPATCH</span>
+      <span>2026 EDITION</span>
+    </div>
+  </div>
+
+  <!-- Skip Button -->
+  <button 
+    id="skip-intro" 
+    class="absolute bottom-6 right-6 micro-label text-[#1d1d1b] hover:text-[#c03f13] underline underline-offset-4 cursor-pointer transition-colors p-2 z-[10001]"
+    aria-label="Skip intro animation"
+  >
+    SKIP INTRO →
+  </button>
+</div>
+
+<style>
+  /* Phase 1: 3D RotateY Swing Open Keyframe (1.0s, ease-out) */
+  @keyframes rotateMastheadOpen {
+    0% {
+      transform: rotateY(-90deg);
+      opacity: 0;
+    }
+    100% {
+      transform: rotateY(0deg);
+      opacity: 1;
+    }
+  }
+
+  /* Phase 2: Zoom & Fade Out Overlay Keyframe (0.9s, ease-in-out) */
+  @keyframes zoomFadeOverlay {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.15);
+      opacity: 0;
+    }
+  }
+
+  .animate-rotate-open {
+    animation: rotateMastheadOpen 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-zoom-fade {
+    animation: zoomFadeOverlay 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('[IntroAnimation] Script initialized on DOMContentLoaded');
+
+    const overlay = document.getElementById('intro-overlay');
+    const mastheadBox = document.getElementById('intro-masthead-box');
+    const skipBtn = document.getElementById('skip-intro');
+
+    if (!overlay || !mastheadBox) {
+      console.error('[IntroAnimation] Required DOM elements missing');
+      return;
+    }
+
+    // Check sessionStorage & prefers-reduced-motion
+    const hasSeenIntro = sessionStorage.getItem('miranda_intro_seen');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const finishIntro = () => {
+      sessionStorage.setItem('miranda_intro_seen', 'true');
+      overlay.style.display = 'none';
+      overlay.style.pointerEvents = 'none';
+      console.log('[IntroAnimation] Finished intro');
+    };
+
+    if (hasSeenIntro === 'true' || prefersReducedMotion) {
+      finishIntro();
+      return;
+    }
+
+    if (skipBtn) {
+      skipBtn.addEventListener('click', () => {
+        console.log('[IntroAnimation] User clicked skip');
+        finishIntro();
+      });
+    }
+
+    // Sequence timing (~2.6s total):
+    // 1. 0.0s - 1.0s: Rotate 3D swing open (1.0s ease-out)
+    setTimeout(() => {
+      mastheadBox.classList.add('animate-rotate-open');
+    }, 100);
+
+    // 2. 1.0s - 1.4s: Hold masthead in place so it is clearly readable (0.4s hold)
+    // 3. 1.4s - 2.3s: Zoom scale(1 -> 1.15) & fade out (0.9s ease-in-out)
+    setTimeout(() => {
+      overlay.classList.add('animate-zoom-fade');
+    }, 1400);
+
+    // 4. 2.45s: Complete and hide overlay
+    setTimeout(() => {
+      finishIntro();
+    }, 2450);
+  });
+</script>

@@ -1,0 +1,84 @@
+---
+const skillCategories = [
+  {
+    number: "01",
+    name: "LANGUAGES",
+    skills: ["JavaScript", "TypeScript", "Python", "Java", "C++", "SQL", "HTML", "CSS"]
+  },
+  {
+    number: "02",
+    name: "FRONTEND FRAMEWORKS",
+    skills: ["Next.js", "React.js", "Tailwind CSS", "Astro", "Bootstrap", "Material-UI"]
+  },
+  {
+    number: "03",
+    name: "BACKEND & DATABASES",
+    skills: ["Express.js", "REST APIs", "Authentication & Authorization", "PostgreSQL", "MongoDB", "MySQL", "Full-Stack Development (MERN)", "Distributed Systems"]
+  },
+  {
+    number: "04",
+    name: "TOOLS & CLOUD",
+    skills: ["Git", "GitHub", "Docker", "AWS", "Cloudflare Workers", "Google Colab", "VS Code", "Agile / Scrum"]
+  },
+  {
+    number: "05",
+    name: "SEO & ANALYTICS",
+    skills: ["GA4 (Google Analytics 4)", "Google AdSense", "Google Search Console", "Technical Content Optimization", "Microdata Implementation", "Performance Optimization", "Dynamic URL Generation"]
+  },
+  {
+    number: "06",
+    name: "AI & OTHER CAPABILITIES",
+    skills: ["Machine Learning", "Data Visualization", "Critical Thinking", "Technical Communication", "Content Strategy Development"]
+  }
+];
+---
+
+<section id="skills" class="py-16 border-b border-[#1d1d1b] reveal-on-scroll">
+  <div class="max-w-[1440px] mx-auto px-4 md:px-8">
+    
+    <!-- Section Header Micro-Label -->
+    <div class="flex items-center justify-between border-b border-[#1d1d1b] pb-2 mb-8">
+      <span class="micro-label text-[#c03f13]">SECTION 02 // TECHNICAL TAXONOMY</span>
+      <span class="micro-label text-[#69645f]">SKILLS & COMPETENCIES</span>
+    </div>
+
+    <!-- Title Banner -->
+    <div class="mb-12">
+      <h2 class="heading-canopee text-[36px] sm:text-[54px] md:text-[72px] text-[#1d1d1b] uppercase">
+        TECHNICAL TOOLKIT & DISCIPLINARY STACK
+      </h2>
+      <p class="font-editorial text-base md:text-lg text-[#69645f] font-light max-w-2xl mt-2">
+        A structured overview of core programming languages, modern web frameworks, database engines, cloud infrastructure, and search optimization techniques.
+      </p>
+    </div>
+
+    <!-- Editorial Broadsheet Labeled Columns Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {skillCategories.map((category) => (
+        <div class="bg-[#cdc6be] p-6 rounded-[11.52px] border border-[#1d1d1b] flex flex-col justify-between shadow-[-4px_4px_6px_0px_rgba(29,29,27,0.15)]">
+          <div>
+            <div class="flex items-center justify-between border-b border-[#1d1d1b] pb-2 mb-4">
+              <span class="micro-label text-[#1d1d1b] font-medium">{category.name}</span>
+              <span class="font-canopee text-xl text-[#c03f13]">{category.number}</span>
+            </div>
+
+            <ul class="space-y-2.5 font-editorial text-base text-[#1d1d1b]">
+              {category.skills.map((skill) => (
+                <li class="flex items-start gap-2.5">
+                  <span class="text-[#c03f13] text-xs pt-1">■</span>
+                  <span class="leading-tight font-light">{skill}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="mt-6 pt-3 border-t border-[#1d1d1b]/20 text-[11px] font-editorial text-[#69645f] flex justify-between">
+            <span>VERIFIED CAPABILITY</span>
+            <span>2026</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
